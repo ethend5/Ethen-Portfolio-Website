@@ -13,8 +13,9 @@ create table if not exists public.projects (
   category          text not null check (category in ('hardware', 'software', 'ai', 'embedded', 'web')),
   tags              text[] not null default '{}',
   image_url         text,
-  project_url       text,
-  link_type         text check (link_type in ('github', 'youtube')),  -- null: no link shown
+  project_url       text,                                             -- deprecated, superseded by `links`
+  link_type         text check (link_type in ('github', 'youtube')),  -- deprecated, superseded by `links`
+  links             jsonb not null default '[]'::jsonb,                -- [{ "type": "github"|"youtube"|"live"|"other", "url": "..." }]
   featured          boolean not null default false,
   problem           text,
   process           text,
@@ -29,6 +30,20 @@ create table if not exists public.projects (
 -- before this script's column list settled.
 alter table public.projects add column if not exists long_description text;
 alter table public.projects add column if not exists link_type text check (link_type in ('github', 'youtube'));
+alter table public.projects add column if not exists links jsonb not null default '[]'::jsonb;
+
+alter table public.projects drop constraint if exists projects_links_is_array;
+alter table public.projects add constraint projects_links_is_array check (jsonb_typeof(links) = 'array');
+
+-- One-time migration: fold the old single project_url/link_type into the
+-- new links array. Guarded so it only fills rows that haven't been
+-- migrated yet (links is still empty) — safe to re-run, and won't clobber
+-- links entered later through the admin form.
+update public.projects
+set links = jsonb_build_array(jsonb_build_object('type', link_type, 'url', project_url))
+where project_url is not null
+  and link_type is not null
+  and links = '[]'::jsonb;
 
 -- RLS policies (below) only take effect once the underlying role has the
 -- matching SQL-level GRANT. The Supabase Table Editor adds these

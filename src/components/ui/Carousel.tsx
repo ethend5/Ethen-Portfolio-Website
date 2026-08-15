@@ -53,8 +53,9 @@ export default function Carousel({ images }: CarouselProps) {
         <button
           onClick={prev}
           aria-label="Previous photo"
-          className="absolute left-2 top-1/2 -translate-y-1/2 z-10 rounded-full
-                     bg-black/40 p-1.5 text-white backdrop-blur-sm
+          className="absolute left-2 top-1/2 flex h-11 w-11 -translate-y-1/2 z-10
+                     items-center justify-center rounded-full
+                     bg-black/40 text-white backdrop-blur-sm
                      hover:bg-black/65 transition-colors"
         >
           <ChevronLeft size={20} />
@@ -62,25 +63,31 @@ export default function Carousel({ images }: CarouselProps) {
         <button
           onClick={next}
           aria-label="Next photo"
-          className="absolute right-2 top-1/2 -translate-y-1/2 z-10 rounded-full
-                     bg-black/40 p-1.5 text-white backdrop-blur-sm
+          className="absolute right-2 top-1/2 flex h-11 w-11 -translate-y-1/2 z-10
+                     items-center justify-center rounded-full
+                     bg-black/40 text-white backdrop-blur-sm
                      hover:bg-black/65 transition-colors"
         >
           <ChevronRight size={20} />
         </button>
       </div>
 
-      {/* Dot indicators */}
-      <div className="flex items-center gap-2">
+      {/* Dot indicators — extra padding widens the tap target without
+          growing the visual dot (negative margin keeps layout unchanged) */}
+      <div className="flex items-center gap-1">
         {images.map((_, i) => (
           <button
             key={i}
             onClick={() => setCurrent(i)}
             aria-label={`Go to photo ${i + 1}`}
-            className={`h-2 rounded-full transition-all duration-300 ${
-              i === current ? "w-5 bg-[#0ea5e9]" : "w-2 bg-white/20 hover:bg-white/40"
-            }`}
-          />
+            className="flex items-center justify-center p-2.5 -m-1"
+          >
+            <span
+              className={`block h-2 rounded-full transition-all duration-300 ${
+                i === current ? "w-5 bg-[#0ea5e9]" : "w-2 bg-white/20 hover:bg-white/40"
+              }`}
+            />
+          </button>
         ))}
       </div>
     </div>

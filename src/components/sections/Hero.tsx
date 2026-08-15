@@ -197,7 +197,7 @@ export default function Hero({ name, tagline, email, linkedinUrl, githubUrl, phr
                   whileHover={{ scale: 1.12, y: -2 }}
                   whileTap={{ scale: 0.93 }}
                   transition={{ type: "spring", stiffness: 400, damping: 18 }}
-                  className="flex h-9 w-9 items-center justify-center rounded-lg border border-white/10
+                  className="flex h-11 w-11 items-center justify-center rounded-lg border border-white/10
                              bg-white/5 text-[#94a3b8] hover:border-[#0284c7]/50 hover:text-[#38bdf8]
                              transition-colors duration-200"
                 >
