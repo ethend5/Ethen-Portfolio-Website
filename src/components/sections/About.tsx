@@ -42,9 +42,10 @@ interface Props {
   projectCount: number;
   skillCount: number;
   bioParagraphs: string[];
+  focusAreas: string[];
 }
 
-export default function About({ projectCount, skillCount, bioParagraphs }: Props) {
+export default function About({ projectCount, skillCount, bioParagraphs, focusAreas }: Props) {
   return (
     <section id="about" className="py-24 px-6">
       <div className="max-w-6xl mx-auto">
@@ -86,14 +87,7 @@ export default function About({ projectCount, skillCount, bioParagraphs }: Props
 
             {/* Quick-fact tags */}
             <motion.div variants={itemVariants} className="flex flex-wrap gap-2 pt-2">
-              {[
-                "Embedded Systems",
-                "PCB Design",
-                "Machine Learning",
-                "RTOS / Firmware",
-                "Full-Stack Web",
-                "Control Theory",
-              ].map((tag) => (
+              {focusAreas.map((tag) => (
                 <span
                   key={tag}
                   className="rounded-md border border-white/5 bg-background-800 px-3 py-1

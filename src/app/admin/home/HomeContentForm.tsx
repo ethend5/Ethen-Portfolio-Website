@@ -1,6 +1,6 @@
 "use client";
 
-import { useActionState } from "react";
+import { useActionState, useState } from "react";
 import { motion } from "framer-motion";
 import { Save } from "lucide-react";
 import type { SiteContentRow } from "@/lib/supabase/site-content";
@@ -31,6 +31,11 @@ const initialState: ActionState = {};
 
 export default function HomeContentForm({ content }: Props) {
   const [state, formAction, pending] = useActionState(updateSiteContent, initialState);
+  const [focusAreasInput, setFocusAreasInput] = useState(content.focus_areas?.join(", ") ?? "");
+  const focusAreasPreview = focusAreasInput
+    .split(",")
+    .map((t) => t.trim())
+    .filter(Boolean);
 
   return (
     <form action={formAction} className="flex flex-col gap-8">
@@ -70,6 +75,29 @@ export default function HomeContentForm({ content }: Props) {
           placeholder={"Embedded Systems Developer\nAI & Hardware Enthusiast"}
           className={TEXTAREA_CLASS}
         />
+      </Field>
+
+      <Field label="Focus areas / quick-fact tags (comma-separated)">
+        <input
+          name="focus_areas"
+          value={focusAreasInput}
+          onChange={(e) => setFocusAreasInput(e.target.value)}
+          placeholder="Embedded Systems, PCB Design, Machine Learning"
+          className={INPUT_CLASS}
+        />
+        {focusAreasPreview.length > 0 && (
+          <div className="flex flex-wrap gap-2 pt-1">
+            {focusAreasPreview.map((tag, i) => (
+              <span
+                key={`${tag}-${i}`}
+                className="rounded-md border border-white/5 bg-background-800 px-3 py-1
+                           text-xs font-medium text-text-muted"
+              >
+                {tag}
+              </span>
+            ))}
+          </div>
+        )}
       </Field>
 
       <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">

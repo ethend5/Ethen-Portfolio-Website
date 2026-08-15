@@ -174,11 +174,13 @@ create table if not exists public.site_content (
   linkedin_url   text,
   github_url     text,
   typed_phrases  text[] not null default '{}',
+  focus_areas    text[] not null default '{}',
   updated_at     timestamptz not null default now()
 );
 
--- Self-heal a table that was already created before this column existed.
+-- Self-heal a table that was already created before these columns existed.
 alter table public.site_content add column if not exists typed_phrases text[] not null default '{}';
+alter table public.site_content add column if not exists focus_areas text[] not null default '{}';
 
 grant select on public.site_content to anon, authenticated;
 grant update on public.site_content to authenticated;
@@ -201,7 +203,7 @@ create policy "Authenticated update"
   with check (id = 1);
 
 insert into public.site_content
-  (id, name, tagline, bio, resume_url, email, linkedin_url, github_url, typed_phrases)
+  (id, name, tagline, bio, resume_url, email, linkedin_url, github_url, typed_phrases, focus_areas)
 values (
   1,
   'Ethen Dhanaraj',
@@ -217,13 +219,18 @@ I believe the strongest engineers are ones who can go deep on a technical proble
   'ethendhanaraj@gmail.com',
   'https://www.linkedin.com/in/ethen-dhanaraj/',
   'https://github.com/ethend5',
-  array['Embedded Systems Developer', 'AI & Hardware Enthusiast', 'Full-Stack Developer', 'Engineering Leader']
+  array['Embedded Systems Developer', 'AI & Hardware Enthusiast', 'Full-Stack Developer', 'Engineering Leader'],
+  array['Embedded Systems', 'PCB Design', 'Machine Learning', 'RTOS / Firmware', 'Full-Stack Web', 'Control Theory']
 )
 on conflict (id) do nothing;
 
--- Backfill typed_phrases for a row that was inserted before this column
--- existed. Only touches rows where it's still empty, so it won't clobber
--- anything already edited through /admin/home.
+-- Backfill typed_phrases/focus_areas for a row that was inserted before
+-- these columns existed. Only touches rows where still empty, so it won't
+-- clobber anything already edited through /admin/home.
 update public.site_content
   set typed_phrases = array['Embedded Systems Developer', 'AI & Hardware Enthusiast', 'Full-Stack Developer', 'Engineering Leader']
   where id = 1 and typed_phrases = '{}';
+
+update public.site_content
+  set focus_areas = array['Embedded Systems', 'PCB Design', 'Machine Learning', 'RTOS / Firmware', 'Full-Stack Web', 'Control Theory']
+  where id = 1 and focus_areas = '{}';

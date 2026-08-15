@@ -31,6 +31,7 @@ export default async function Home() {
         projectCount={projects.length}
         skillCount={skills.length}
         bioParagraphs={siteContent.bioParagraphs}
+        focusAreas={siteContent.focusAreas}
       />
       <Skills skills={skills} />
       <Projects projects={projects} />

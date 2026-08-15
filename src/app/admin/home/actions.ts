@@ -14,6 +14,7 @@ interface SiteContentInput {
   linkedin_url: string | null;
   github_url: string | null;
   typed_phrases: string[];
+  focus_areas: string[];
 }
 
 function parseFormData(formData: FormData): SiteContentInput {
@@ -23,6 +24,11 @@ function parseFormData(formData: FormData): SiteContentInput {
     str(key)
       .split("\n")
       .map((l) => l.trim())
+      .filter(Boolean);
+  const csv = (key: string) =>
+    str(key)
+      .split(",")
+      .map((t) => t.trim())
       .filter(Boolean);
 
   return {
@@ -34,6 +40,7 @@ function parseFormData(formData: FormData): SiteContentInput {
     linkedin_url: optional("linkedin_url"),
     github_url: optional("github_url"),
     typed_phrases: lines("typed_phrases"),
+    focus_areas: csv("focus_areas"),
   };
 }
 

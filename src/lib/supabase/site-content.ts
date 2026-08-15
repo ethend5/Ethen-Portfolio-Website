@@ -10,6 +10,7 @@ export interface SiteContentRow {
   linkedin_url: string | null;
   github_url: string | null;
   typed_phrases: string[];
+  focus_areas: string[];
   updated_at: string;
 }
 
@@ -22,6 +23,7 @@ export interface SiteContent {
   linkedinUrl: string;
   githubUrl: string;
   typedPhrases: string[];
+  focusAreas: string[];
 }
 
 export function rowToSiteContent(row: SiteContentRow): SiteContent {
@@ -34,6 +36,7 @@ export function rowToSiteContent(row: SiteContentRow): SiteContent {
     linkedinUrl: row.linkedin_url ?? "",
     githubUrl: row.github_url ?? "",
     typedPhrases: row.typed_phrases,
+    focusAreas: row.focus_areas,
   };
 }
 
