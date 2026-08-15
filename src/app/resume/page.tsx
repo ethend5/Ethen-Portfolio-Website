@@ -1,19 +1,25 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { getSiteContent } from "@/lib/supabase/site-content";
 
-export const metadata: Metadata = {
-  title: "Resume",
-  description: "Resume of Ethen Dhanaraj — Electrical Engineering student at UC Santa Cruz.",
-};
+export async function generateMetadata(): Promise<Metadata> {
+  const content = await getSiteContent();
+  return {
+    title: "Resume",
+    description: `Resume of ${content.name} — ${content.tagline}.`,
+  };
+}
 
-export default function ResumePage() {
+export default async function ResumePage() {
+  const { resumeUrl } = await getSiteContent();
+
   return (
     <section className="min-h-screen pt-24 pb-16 px-6">
       <div className="max-w-4xl mx-auto">
         <div className="flex items-center justify-between mb-8 flex-wrap gap-4">
           <h1 className="text-4xl font-bold text-white">Resume</h1>
           <a
-            href="/resume.pdf"
+            href={resumeUrl}
             download
             className="inline-flex items-center gap-2 px-5 py-2.5 rounded-lg bg-primary-500 hover:bg-primary-600 text-white font-medium transition-colors"
           >
@@ -37,10 +43,9 @@ export default function ResumePage() {
           </a>
         </div>
 
-        {/* NOTE: Place your resume PDF at public/resume.pdf */}
         <div className="w-full rounded-xl overflow-hidden border border-white/10 bg-[#111118]">
           <object
-            data="/resume.pdf"
+            data={resumeUrl}
             type="application/pdf"
             className="w-full"
             style={{ height: "80vh" }}
@@ -50,7 +55,7 @@ export default function ResumePage() {
                 Your browser cannot display the PDF inline.
               </p>
               <a
-                href="/resume.pdf"
+                href={resumeUrl}
                 download
                 className="px-5 py-2.5 rounded-lg bg-primary-500 hover:bg-primary-600 text-white font-medium transition-colors"
               >

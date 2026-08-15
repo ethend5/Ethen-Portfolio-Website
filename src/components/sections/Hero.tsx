@@ -75,19 +75,6 @@ function PersonSilhouette() {
 
 // ─── Constants ────────────────────────────────────────────────────────────────
 
-const PHRASES = [
-  "Embedded Systems Developer",
-  "AI & Hardware Enthusiast",
-  "Full-Stack Developer",
-  "Engineering Leader",
-];
-
-const SOCIAL_LINKS = [
-  { label: "GitHub",   href: "https://github.com/ethend5",                  Icon: GithubIcon   }, // Replace with your GitHub URL
-  { label: "LinkedIn", href: "https://www.linkedin.com/in/ethen-dhanaraj/", Icon: LinkedinIcon }, // Replace with your LinkedIn URL
-  { label: "Email",    href: "mailto:ethendhanaraj@gmail.com",            Icon: Mail         }, // Replace with your real email
-] as const;
-
 function scrollTo(id: string) {
   document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
 }
@@ -106,8 +93,23 @@ const itemVariants: Variants = {
 
 // ─── Component ───────────────────────────────────────────────────────────────
 
-export default function Hero() {
-  const typed = useTypingEffect(PHRASES);
+interface Props {
+  name: string;
+  tagline: string;
+  email: string;
+  linkedinUrl: string;
+  githubUrl: string;
+  phrases: string[];
+}
+
+export default function Hero({ name, tagline, email, linkedinUrl, githubUrl, phrases }: Props) {
+  const typed = useTypingEffect(phrases);
+
+  const socialLinks = [
+    githubUrl && { label: "GitHub", href: githubUrl, Icon: GithubIcon },
+    linkedinUrl && { label: "LinkedIn", href: linkedinUrl, Icon: LinkedinIcon },
+    email && { label: "Email", href: `mailto:${email}`, Icon: Mail },
+  ].filter(Boolean) as { label: string; href: string; Icon: typeof Mail }[];
 
   return (
     <section
@@ -150,7 +152,7 @@ export default function Hero() {
             {/* Name */}
             <motion.div variants={itemVariants}>
               <h1 className="text-5xl font-bold leading-tight text-white md:text-6xl lg:text-7xl">
-                Ethen Dhanaraj
+                {name}
               </h1>
               {/* Blue underline accent */}
               <motion.div
@@ -166,7 +168,7 @@ export default function Hero() {
               variants={itemVariants}
               className="text-lg font-medium text-[#94a3b8]"
             >
-              Electrical Engineering Student at UC Santa Cruz
+              {tagline}
             </motion.p>
 
             {/* Typing effect */}
@@ -185,7 +187,7 @@ export default function Hero() {
               variants={itemVariants}
               className="flex flex-wrap items-center gap-3"
             >
-              {SOCIAL_LINKS.map(({ label, href, Icon }) => (
+              {socialLinks.map(({ label, href, Icon }) => (
                 <motion.a
                   key={label}
                   href={href}
@@ -291,7 +293,7 @@ export default function Hero() {
               >
                 <Image
                   src="/headshot.jpg"
-                  alt="Ethen Dhanaraj"
+                  alt={name}
                   fill
                   sizes="(max-width: 640px) 320px, (max-width: 768px) 384px, 416px"
                   className="object-cover object-top"

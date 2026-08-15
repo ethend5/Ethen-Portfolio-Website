@@ -2,8 +2,6 @@
 
 import { motion, type Variants } from "framer-motion";
 import Carousel from "@/components/ui/Carousel";
-import { projects } from "@/data/projects";
-import { skills } from "@/data/skills";
 
 /*
  * ── Photo paths ────────────────────────────────────────────────────────────
@@ -21,11 +19,11 @@ const ABOUT_IMAGES = [
 // Year Ethen started gaining professional/engineering experience
 const EXPERIENCE_START_YEAR = 2023;
 
-function getStats() {
+function getStats(projectCount: number, skillCount: number) {
   const yearsOfExperience = new Date().getFullYear() - EXPERIENCE_START_YEAR;
   return [
-    { value: `${projects.length}+`, label: "Projects Completed"  },
-    { value: `${skills.length}+`,   label: "Technologies"        },
+    { value: `${projectCount}+`, label: "Projects Completed"  },
+    { value: `${skillCount}+`,   label: "Technologies"        },
     { value: `${yearsOfExperience}+`, label: "Years of Experience" },
   ];
 }
@@ -40,7 +38,13 @@ const itemVariants: Variants = {
   show:   { opacity: 1, y: 0, transition: { duration: 0.5, ease: "easeOut" } },
 };
 
-export default function About() {
+interface Props {
+  projectCount: number;
+  skillCount: number;
+  bioParagraphs: string[];
+}
+
+export default function About({ projectCount, skillCount, bioParagraphs }: Props) {
   return (
     <section id="about" className="py-24 px-6">
       <div className="max-w-6xl mx-auto">
@@ -74,36 +78,11 @@ export default function About() {
             className="flex flex-col gap-5 text-text-secondary leading-relaxed
                        lg:col-start-1 lg:row-start-1"
           >
-            <motion.p variants={itemVariants}>
-              I&apos;m an Electrical Engineering student at UC Santa Cruz with a focus on
-              building systems that sit at the boundary of hardware and software. My
-              coursework and hands-on work span embedded systems, high voltage electronics,
-              machine learning, and full-stack development, and I&apos;m most engaged when
-              a project requires thinking across all of those layers at once.
-            </motion.p>
-
-            <motion.p variants={itemVariants}>
-              On the hardware side, I work with Formula Slug&apos;s electric vehicle team
-              doing PCB layout, high voltage interlock design, and battery pack assembly.
-              On the software and AI side, I interned at Ushur building AI-powered
-              automation workflows for enterprise clients in healthcare and finance, and
-              recently built ChainPilot, a multi-agent supply chain decision framework, in
-              24 hours at a hackathon.
-            </motion.p>
-
-            <motion.p variants={itemVariants}>
-              Outside of technical work, I serve as Vice President of Professional
-              Development for Alpha Kappa Psi, where I founded Alpha Technologies, an
-              internal organization focused on growing the technical skills of chapter
-              members. I also work with nonprofits through 180 Degrees Consulting, helping
-              organizations identify operational gaps and build actionable strategies.
-            </motion.p>
-
-            <motion.p variants={itemVariants}>
-              I believe the strongest engineers are ones who can go deep on a technical
-              problem and still communicate clearly, lead a team, and deliver something
-              real. That is the standard I hold myself to.
-            </motion.p>
+            {bioParagraphs.map((paragraph, i) => (
+              <motion.p key={i} variants={itemVariants}>
+                {paragraph}
+              </motion.p>
+            ))}
 
             {/* Quick-fact tags */}
             <motion.div variants={itemVariants} className="flex flex-wrap gap-2 pt-2">
@@ -147,7 +126,7 @@ export default function About() {
             className="lg:col-start-1 lg:row-start-2 lg:self-start"
           >
             <div style={{ display: "flex", gap: "16px", width: "100%" }}>
-              {getStats().map(({ value, label }) => (
+              {getStats(projectCount, skillCount).map(({ value, label }) => (
                 <motion.div
                   key={label}
                   variants={itemVariants}

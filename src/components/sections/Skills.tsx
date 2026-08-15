@@ -3,7 +3,6 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion"; // AnimatePresence kept for empty-state fade
 import SkillCard from "@/components/ui/SkillCard";
-import { skills } from "@/data/skills";
 import type { Skill } from "@/types";
 
 // ─── Filter config ────────────────────────────────────────────────────────────
@@ -20,7 +19,11 @@ const FILTERS: { label: string; value: FilterValue }[] = [
 
 // ─── Component ───────────────────────────────────────────────────────────────
 
-export default function Skills() {
+interface Props {
+  skills: Skill[];
+}
+
+export default function Skills({ skills }: Props) {
   const [activeFilter, setActiveFilter] = useState<FilterValue>("all");
 
   const filtered =

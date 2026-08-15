@@ -4,11 +4,15 @@ import Link from "next/link";
 import { motion } from "framer-motion";
 import { ArrowRight } from "lucide-react";
 import ProjectCard from "@/components/ui/ProjectCard";
-import { projects } from "@/data/projects";
+import type { Project } from "@/types";
 
-const featured = projects.filter((p) => p.featured).slice(0, 3);
+interface Props {
+  projects: Project[];
+}
 
-export default function Projects() {
+export default function Projects({ projects }: Props) {
+  const featured = projects.filter((p) => p.featured).slice(0, 3);
+
   return (
     <section id="projects" className="py-24 px-6">
       <div className="max-w-6xl mx-auto">

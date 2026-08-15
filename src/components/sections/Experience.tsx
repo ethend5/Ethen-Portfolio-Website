@@ -6,7 +6,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
 import { ChevronLeft, ChevronRight, X } from "lucide-react";
 import ExperienceCard from "@/components/ui/ExperienceCard";
-import { experiences } from "@/data/experience";
+import type { Experience as ExperienceType } from "@/types";
 
 const SKILL_PILL: Record<string, string> = {
   professional: "bg-sky-500/10 text-sky-300 border-sky-500/20",
@@ -29,7 +29,11 @@ function formatDate(d: string): string {
   });
 }
 
-export default function Experience() {
+interface Props {
+  experiences: ExperienceType[];
+}
+
+export default function Experience({ experiences }: Props) {
   const scrollRef  = useRef<HTMLDivElement>(null);
   const [activeDot, setActiveDot] = useState(0);
   const [canPrev,   setCanPrev]   = useState(false);
