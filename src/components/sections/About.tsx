@@ -63,21 +63,20 @@ export default function About({ projectCount, skillCount, bioParagraphs, focusAr
         </motion.div>
 
         {/*
-          Grid layout — 3 children, 2 columns on desktop:
-            [text+pills]  [carousel]   ← row 1
-            [stat cards]  [carousel]   ← row 2 (carousel spans both rows)
-          Mobile: single column, DOM source order = text → carousel → stats
+          Grid layout — 2 columns on desktop:
+            [bio text + pills]  [carousel]
+                                [stat cards]
+          Mobile: single column, DOM source order = bio+tags → carousel → stats
         */}
-        <div className="grid grid-cols-1 lg:grid-cols-[55%_45%] gap-12 items-center">
+        <div className="grid grid-cols-1 lg:grid-cols-[55%_45%] gap-12 items-start">
 
-          {/* ── 1. Bio text + pills (col 1, row 1 on desktop) ──────────── */}
+          {/* ── 1. Bio text + pills ──────────────────────────────────── */}
           <motion.div
             variants={containerVariants}
             initial="hidden"
             whileInView="show"
             viewport={{ once: true }}
-            className="flex flex-col gap-5 text-text-secondary leading-relaxed
-                       lg:col-start-1 lg:row-start-1"
+            className="flex flex-col gap-5 text-text-secondary leading-relaxed"
           >
             {bioParagraphs.map((paragraph, i) => (
               <motion.p key={i} variants={itemVariants}>
@@ -99,51 +98,52 @@ export default function About({ projectCount, skillCount, bioParagraphs, focusAr
             </motion.div>
           </motion.div>
 
-          {/* ── 2. Carousel (col 2, spans both rows on desktop; row 2 mobile) ── */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6, ease: "easeOut", delay: 0.1 }}
-            className="min-w-0 lg:min-w-[320px] lg:col-start-2 lg:row-start-1 lg:row-end-3
-                       flex flex-col items-center justify-center"
-          >
-            <Carousel images={ABOUT_IMAGES} />
-          </motion.div>
+          {/* ── 2. Carousel + stat cards, stacked in the right column ──── */}
+          <div className="flex flex-col gap-8 min-w-0 lg:min-w-[320px]">
 
-          {/* ── 3. Stat cards (col 1, row 2 on desktop; row 3 mobile) ───── */}
-          <motion.div
-            variants={containerVariants}
-            initial="hidden"
-            whileInView="show"
-            viewport={{ once: true }}
-            className="lg:col-start-1 lg:row-start-2 lg:self-start"
-          >
-            <div style={{ display: "flex", gap: "16px", width: "100%" }}>
-              {getStats(projectCount, skillCount).map(({ value, label }) => (
-                <motion.div
-                  key={label}
-                  variants={itemVariants}
-                  style={{ flex: 1 }}
-                  className="flex flex-col items-center justify-center gap-1 rounded-lg
-                             border border-white/5 border-l-[3px] border-l-primary-500
-                             bg-background-800 px-3 py-3 text-center"
-                >
-                  <span className="text-xl font-bold text-[#38bdf8]">{value}</span>
-                  <span
-                    style={{
-                      fontSize: "clamp(0.7rem, 1.5vw, 0.85rem)",
-                      whiteSpace: "normal",
-                      textAlign: "center",
-                    }}
-                    className="text-text-muted"
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6, ease: "easeOut", delay: 0.1 }}
+              className="flex flex-col items-center justify-center"
+            >
+              <Carousel images={ABOUT_IMAGES} />
+            </motion.div>
+
+            <motion.div
+              variants={containerVariants}
+              initial="hidden"
+              whileInView="show"
+              viewport={{ once: true }}
+            >
+              <div style={{ display: "flex", gap: "16px", width: "100%" }}>
+                {getStats(projectCount, skillCount).map(({ value, label }) => (
+                  <motion.div
+                    key={label}
+                    variants={itemVariants}
+                    style={{ flex: 1 }}
+                    className="flex flex-col items-center justify-center gap-1 rounded-lg
+                               border border-white/5 border-l-[3px] border-l-primary-500
+                               bg-background-800 px-3 py-3 text-center"
                   >
-                    {label}
-                  </span>
-                </motion.div>
-              ))}
-            </div>
-          </motion.div>
+                    <span className="text-xl font-bold text-[#38bdf8]">{value}</span>
+                    <span
+                      style={{
+                        fontSize: "clamp(0.7rem, 1.5vw, 0.85rem)",
+                        whiteSpace: "normal",
+                        textAlign: "center",
+                      }}
+                      className="text-text-muted"
+                    >
+                      {label}
+                    </span>
+                  </motion.div>
+                ))}
+              </div>
+            </motion.div>
+
+          </div>
 
         </div>
       </div>
