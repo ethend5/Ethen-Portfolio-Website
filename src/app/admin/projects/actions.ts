@@ -7,6 +7,7 @@ import { createClient } from "@/lib/supabase/server";
 export type ActionState = { error?: string };
 
 const CATEGORIES = ["hardware", "software", "ai", "embedded", "web"];
+const LINK_TYPES = ["github", "youtube"];
 
 interface ProjectInput {
   title: string;
@@ -18,6 +19,7 @@ interface ProjectInput {
   tags: string[];
   image_url: string | null;
   project_url: string | null;
+  link_type: string | null;
   featured: boolean;
   problem: string | null;
   process: string | null;
@@ -40,6 +42,9 @@ function parseFormData(formData: FormData): ProjectInput {
   const rawDate = str("date");
   const date = /^\d{4}-\d{2}$/.test(rawDate) ? `${rawDate}-01` : rawDate;
 
+  const rawLinkType = str("link_type");
+  const link_type = LINK_TYPES.includes(rawLinkType) ? rawLinkType : null;
+
   return {
     title: str("title"),
     slug: str("slug"),
@@ -50,6 +55,7 @@ function parseFormData(formData: FormData): ProjectInput {
     tags,
     image_url: optional("image_url"),
     project_url: optional("project_url"),
+    link_type,
     featured: formData.get("featured") === "on",
     problem: optional("problem"),
     process: optional("process"),

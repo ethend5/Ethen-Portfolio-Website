@@ -2,7 +2,7 @@
 -- (src/data/projects.ts) into the new table. Safe to re-run: upserts on slug.
 
 insert into public.projects
-  (slug, title, description, long_description, date, category, tags, image_url, project_url, featured, problem, process, challenges, results, lessons, display_order)
+  (slug, title, description, long_description, date, category, tags, image_url, project_url, link_type, featured, problem, process, challenges, results, lessons, display_order)
 values
 (
   'chainpilot',
@@ -12,6 +12,7 @@ values
   '2026-05-01',
   'ai',
   array['NVIDIA Nemotron', 'Multi-Agent AI', 'Python', 'OpenClaw', 'Supply Chain', 'Agentic AI'],
+  null,
   null,
   null,
   true,
@@ -32,6 +33,7 @@ values
   array['Embedded C', 'FSM', 'Microcontroller', 'OLED', 'Embedded Systems', 'State Machine', 'C'],
   '/projects/toaster-oven-fsm.png',
   'https://youtube.com/shorts/4BcS9qXNCK8?feature=share',
+  'youtube',
   true,
   $$The main challenge was handling multiple things happening at once: button presses, knob adjustments, and a countdown timer all needed to work together without the system freezing or missing inputs. A simple polling loop would have been too slow and messy to manage. The system needed to respond instantly to user input while also tracking time, updating the display, and keeping several state variables in sync.$$,
   $$Before writing any code, spent a lot of time tracing through the FSM diagram from the lab manual, following every state transition and condition by hand. The four states were SETUP, SELECTOR_CHANGE_PENDING, COOKING, and RESET_PENDING. Development was done one transition at a time, starting with getting the OLED display working with placeholder data so there was always something visible to check against. From there, the struct holding all oven data was built out, and each new state was added and tested before moving on to the next one.$$,
@@ -50,6 +52,7 @@ values
   array['Electromagnetics', 'Circuit Design', 'Parallel Circuit', 'Physics', 'AP Physics C'],
   '/projects/electromagnetic-car.png',
   'https://youtube.com/shorts/RFz2Em4uBmo?feature=share',
+  'youtube',
   true,
   $$The main challenge was figuring out how to power two separate systems, the motors and the electromagnet, from the same low-voltage battery source without one system pulling too much current and weakening the other. A series circuit would have split the voltage and left both systems underpowered, so the wiring setup needed to be thought through carefully.$$,
   $$Started by planning out the circuit on paper before building anything. Chose a parallel configuration so both the drive motors and the electromagnet would each receive the full 1.5 volts from the batteries rather than sharing it. The AP Physics C coursework on electromagnetism and Ampere's Law directly informed the decision to maximize the number of wire turns on the bolt, since more turns means a stronger magnetic field.$$,
@@ -68,6 +71,7 @@ values
   array['CAD', 'Fusion 360', 'Product Design', 'Fabrication', 'PLTW'],
   '/projects/thor-hammer.png',
   'https://youtu.be/sxhJGrL8yqU',
+  'youtube',
   true,
   $$This was an unnecessary invention, and we knew that going in. The goal was not to solve a practical problem but to practice the full engineering design process from constraints and research through modeling and fabrication, using a fun concept as the vehicle.$$,
   $$Used our teacher's toy Thor Hammer as the reference model and scaled it up proportionally so the microphone could fit inside the handle without making the hammer look distorted. Broke the design into three separate parts to make it easier to manufacture and assemble. Added a locking snap mechanism so the pieces connect securely and the microphone can be loaded in through the top. Also incorporated a Celtic Star on the sides of the hammer to represent our classmate Geuss' heritage, and stamped the piece with "Microphone Ethen and Aadi Co 2025" written in Greek letters because it looked cool and gave the project some personality.$$,
@@ -86,6 +90,7 @@ values
   array['Fabrication', 'Unistrut', 'AV Systems', 'Structural Design', 'PLTW'],
   '/projects/tv-wall.png',
   null,
+  null,
   false,
   $$The existing classroom projector was outdated, low quality, and nearly impossible to see when the lights were on. Its positioning on the ceiling made visibility even worse for students sitting at certain angles. On top of that, three whiteboards behind the projector screen were completely blocked off and going unused. The classroom needed a display solution that was brighter, clearer, and did not take up the whiteboard space.$$,
   $$Spent the first portion of the semester defining the problem, researching solutions, and narrowing down the best approach. Landed on a four-TV setup as the most practical option because it was cheaper than a single large commercial display, more customizable, and easier to repair or replace individual panels down the line. From there, moved into designing a unistrut frame from scratch to hold all four TVs flush against the wall in a two-by-two grid. The back half of the semester was focused on fabrication, assembly, and installation. Configured the TVs so they could either mirror or extend a single source across all four screens as one large output, or run independently for different use cases.$$,
@@ -103,6 +108,7 @@ on conflict (slug) do update set
   tags              = excluded.tags,
   image_url         = excluded.image_url,
   project_url       = excluded.project_url,
+  link_type         = excluded.link_type,
   featured          = excluded.featured,
   problem           = excluded.problem,
   process           = excluded.process,

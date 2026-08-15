@@ -14,6 +14,7 @@ create table if not exists public.projects (
   tags              text[] not null default '{}',
   image_url         text,
   project_url       text,
+  link_type         text check (link_type in ('github', 'youtube')),  -- null: no link shown
   featured          boolean not null default false,
   problem           text,
   process           text,
@@ -27,6 +28,7 @@ create table if not exists public.projects (
 -- Self-heal tables that were already created (e.g. via the Table Editor)
 -- before this script's column list settled.
 alter table public.projects add column if not exists long_description text;
+alter table public.projects add column if not exists link_type text check (link_type in ('github', 'youtube'));
 
 -- RLS policies (below) only take effect once the underlying role has the
 -- matching SQL-level GRANT. The Supabase Table Editor adds these

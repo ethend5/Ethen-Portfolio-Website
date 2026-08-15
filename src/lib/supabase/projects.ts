@@ -13,6 +13,7 @@ export interface ProjectRow {
   tags: string[];
   image_url: string | null;
   project_url: string | null;
+  link_type: "github" | "youtube" | null;
   featured: boolean;
   problem: string | null;
   process: string | null;
@@ -32,8 +33,9 @@ export function rowToProject(row: ProjectRow): Project {
     date: row.date,
     tags: row.tags,
     image: row.image_url ?? "",
-    demo: row.project_url ?? undefined,
-    demoLabel: row.project_url ? "View Project" : undefined,
+    github: row.link_type === "github" ? row.project_url ?? undefined : undefined,
+    demo: row.link_type === "youtube" ? row.project_url ?? undefined : undefined,
+    demoLabel: row.link_type === "youtube" ? "Watch Demo" : undefined,
     featured: row.featured,
     category: row.category,
     problem: row.problem ?? undefined,

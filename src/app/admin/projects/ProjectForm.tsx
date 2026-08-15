@@ -22,6 +22,18 @@ const CATEGORY_OPTIONS = [
   { value: "web", label: "Web" },
 ] as const;
 
+const LINK_TYPE_OPTIONS = [
+  { value: "", label: "None" },
+  { value: "github", label: "GitHub" },
+  { value: "youtube", label: "YouTube Demo" },
+] as const;
+
+const LINK_TYPE_META: Record<string, { label: string; placeholder: string }> = {
+  "": { label: "Project URL", placeholder: "Pick a link type above to enable this field" },
+  github: { label: "GitHub URL", placeholder: "https://github.com/username/repo" },
+  youtube: { label: "YouTube URL", placeholder: "https://youtube.com/watch?v=… or a youtu.be link" },
+};
+
 function slugify(input: string): string {
   return input
     .toLowerCase()
@@ -52,6 +64,8 @@ export default function ProjectForm({ project, action, submitLabel }: Props) {
   const [title, setTitle] = useState(project?.title ?? "");
   const [slug, setSlug] = useState(project?.slug ?? "");
   const [slugTouched, setSlugTouched] = useState(Boolean(project));
+  const [linkType, setLinkType] = useState(project?.link_type ?? "");
+  const linkTypeMeta = LINK_TYPE_META[linkType];
 
   function handleTitleChange(e: React.ChangeEvent<HTMLInputElement>) {
     const value = e.target.value;
@@ -164,24 +178,53 @@ export default function ProjectForm({ project, action, submitLabel }: Props) {
           />
         </Field>
 
-        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
-          <Field label="Image URL">
-            <input
-              name="image_url"
-              defaultValue={project?.image_url ?? ""}
-              placeholder="/projects/my-project.png or https://…"
-              className={INPUT_CLASS}
-            />
-          </Field>
-          <Field label="Project URL">
-            <input
-              name="project_url"
-              defaultValue={project?.project_url ?? ""}
-              placeholder="https://github.com/… or a demo link"
-              className={INPUT_CLASS}
-            />
-          </Field>
+        <Field label="Image URL">
+          <input
+            name="image_url"
+            defaultValue={project?.image_url ?? ""}
+            placeholder="/projects/my-project.png or https://…"
+            className={INPUT_CLASS}
+          />
+        </Field>
+
+        <div className="flex flex-col gap-1.5">
+          <span className="text-xs font-medium text-text-secondary">Link Type</span>
+          <div className="flex flex-wrap gap-2">
+            {LINK_TYPE_OPTIONS.map((o) => {
+              const isActive = linkType === o.value;
+              return (
+                <label
+                  key={o.value || "none"}
+                  className={[
+                    "cursor-pointer rounded-lg px-4 py-1.5 text-sm font-medium border transition-colors duration-200",
+                    isActive
+                      ? "bg-[#0ea5e9]/15 text-[#38bdf8] border-[#0284c7]/50"
+                      : "border-white/5 bg-[#111118] text-[#64748b] hover:text-[#94a3b8] hover:border-white/10",
+                  ].join(" ")}
+                >
+                  <input
+                    type="radio"
+                    name="link_type"
+                    value={o.value}
+                    checked={isActive}
+                    onChange={() => setLinkType(o.value)}
+                    className="sr-only"
+                  />
+                  {o.label}
+                </label>
+              );
+            })}
+          </div>
         </div>
+
+        <Field label={linkTypeMeta.label}>
+          <input
+            name="project_url"
+            defaultValue={project?.project_url ?? ""}
+            placeholder={linkTypeMeta.placeholder}
+            className={INPUT_CLASS}
+          />
+        </Field>
       </div>
 
       {/* ── Case study ─────────────────────────────────────────── */}
