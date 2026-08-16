@@ -139,7 +139,7 @@ export default function Hero({ name, tagline, email, linkedinUrl, githubUrl, phr
             variants={containerVariants}
             initial="hidden"
             animate="show"
-            className="flex flex-col gap-6"
+            className="flex flex-col items-center gap-6 text-center lg:items-start lg:text-left"
           >
             {/* Greeting */}
             <motion.p
@@ -150,7 +150,7 @@ export default function Hero({ name, tagline, email, linkedinUrl, githubUrl, phr
             </motion.p>
 
             {/* Name */}
-            <motion.div variants={itemVariants}>
+            <motion.div variants={itemVariants} className="flex flex-col items-center lg:items-start">
               <h1 className="text-5xl font-bold leading-tight text-white md:text-6xl lg:text-7xl">
                 {name}
               </h1>
@@ -185,7 +185,7 @@ export default function Hero({ name, tagline, email, linkedinUrl, githubUrl, phr
             {/* Social links + Resume */}
             <motion.div
               variants={itemVariants}
-              className="flex flex-wrap items-center gap-3"
+              className="flex flex-wrap items-center justify-center gap-3 lg:justify-start"
             >
               {socialLinks.map(({ label, href, Icon }) => (
                 <motion.a
@@ -224,7 +224,7 @@ export default function Hero({ name, tagline, email, linkedinUrl, githubUrl, phr
             {/* CTA buttons */}
             <motion.div
               variants={itemVariants}
-              className="flex flex-wrap gap-4"
+              className="flex flex-wrap justify-center gap-4 lg:justify-start"
             >
               <motion.div
                 whileHover={{ scale: 1.03, y: -2 }}

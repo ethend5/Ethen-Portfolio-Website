@@ -275,7 +275,39 @@ export default function Contact() {
               </p>
             </div>
 
-            <div className="flex flex-col gap-3">
+            {/* Compact row — mobile/tablet (below lg), all three side by side */}
+            <div className="flex gap-3 lg:hidden">
+              {CONNECT_LINKS.map(({ label, href, Icon, hoverBg }, i) => (
+                <motion.a
+                  key={label}
+                  href={href}
+                  target={href.startsWith("http") ? "_blank" : undefined}
+                  rel={href.startsWith("http") ? "noopener noreferrer" : undefined}
+                  initial={{ opacity: 0, y: 10 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.35, delay: 0.15 + i * 0.08 }}
+                  whileHover={{ y: -3 }}
+                  whileTap={{ scale: 0.96 }}
+                  aria-label={label}
+                  className={`group flex flex-1 flex-col items-center justify-center gap-2 rounded-xl
+                              border border-white/8 bg-background-800 px-2 py-4 text-text-secondary
+                              transition-all duration-200 ${hoverBg}`}
+                >
+                  <div
+                    className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg
+                               border border-white/8 bg-background-900 transition-colors duration-200
+                               group-hover:border-current group-hover:bg-current/5"
+                  >
+                    <Icon size={16} />
+                  </div>
+                  <span className="text-xs font-medium text-white">{label}</span>
+                </motion.a>
+              ))}
+            </div>
+
+            {/* Detailed rows — desktop (lg+), full label + subtext + arrow */}
+            <div className="hidden flex-col gap-3 lg:flex">
               {CONNECT_LINKS.map(({ label, sub, href, Icon, hoverBg }, i) => (
                 <motion.a
                   key={label}

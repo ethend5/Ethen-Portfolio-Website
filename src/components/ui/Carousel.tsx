@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect, useRef, useCallback } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion, AnimatePresence, type PanInfo } from "framer-motion";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 
 interface CarouselProps {
@@ -29,11 +29,24 @@ export default function Carousel({ images }: CarouselProps) {
     return () => clearInterval(id);
   }, [next]);
 
+  const handleDragEnd = useCallback(
+    (_e: unknown, info: PanInfo) => {
+      const SWIPE_DISTANCE = 50;
+      const SWIPE_VELOCITY = 400;
+      if (info.offset.x < -SWIPE_DISTANCE || info.velocity.x < -SWIPE_VELOCITY) {
+        next();
+      } else if (info.offset.x > SWIPE_DISTANCE || info.velocity.x > SWIPE_VELOCITY) {
+        prev();
+      }
+    },
+    [next, prev]
+  );
+
   return (
     <div className="flex flex-col items-center gap-3 w-full">
       {/* Image frame — drop photos at public/images/about-1.jpg … about-4.jpg */}
       <div
-        className="relative w-full h-75 lg:h-105 rounded-2xl overflow-hidden bg-background-800"
+        className="relative w-full h-96 md:h-105 rounded-2xl overflow-hidden bg-background-800"
         onMouseEnter={() => { hovered.current = true; }}
         onMouseLeave={() => { hovered.current = false; }}
       >
@@ -42,7 +55,12 @@ export default function Carousel({ images }: CarouselProps) {
             key={current}
             src={images[current]}
             alt={`About photo ${current + 1}`}
-            className="absolute inset-0 w-full h-full object-cover"
+            className="absolute inset-0 w-full h-full object-cover cursor-grab active:cursor-grabbing"
+            style={{ touchAction: "pan-y" }}
+            drag="x"
+            dragConstraints={{ left: 0, right: 0 }}
+            dragElastic={0.15}
+            onDragEnd={handleDragEnd}
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}

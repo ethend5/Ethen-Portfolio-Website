@@ -54,9 +54,14 @@ function formatDate(dateStr: string): string {
 interface Props {
   project: Project;
   index?: number;
+  /** Width classes for the root flex item. Override when a parent wrapper
+   *  already carries the sizing (e.g. an AnimatePresence exit wrapper). */
+  className?: string;
 }
 
-export default function ProjectCard({ project, index = 0 }: Props) {
+const DEFAULT_WIDTH = "w-[calc(50%-0.75rem)] flex-none lg:w-[calc(33.333%-1rem)]";
+
+export default function ProjectCard({ project, index = 0, className = DEFAULT_WIDTH }: Props) {
   const gradient = CATEGORY_GRADIENT[project.category];
   const accent   = CATEGORY_ACCENT[project.category];
   const dot      = CATEGORY_DOT[project.category];
@@ -68,6 +73,7 @@ export default function ProjectCard({ project, index = 0 }: Props) {
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
       transition={{ duration: 0.4, delay: index * 0.1 }}
+      className={className}
     >
       <Link href={`/projects/${project.slug}`} className="block group">
         <motion.article

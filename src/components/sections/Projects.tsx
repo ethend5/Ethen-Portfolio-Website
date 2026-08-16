@@ -29,8 +29,10 @@ export default function Projects({ projects }: Props) {
           <div className="h-1 w-12 rounded-full bg-[#0ea5e9]" />
         </motion.div>
 
-        {/* Project grid */}
-        <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3 mb-12">
+        {/* Project grid — flexbox (not CSS grid) so a partial last row
+            centers instead of left-aligning; ProjectCard sets its own
+            per-breakpoint width to mirror a 2-col/3-col track. */}
+        <div className="flex flex-wrap justify-center gap-6 mb-12">
           {featured.map((project, i) => (
             <ProjectCard key={project.slug} project={project} index={i} />
           ))}

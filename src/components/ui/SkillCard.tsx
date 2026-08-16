@@ -81,9 +81,10 @@ export default function SkillCard({ skill, index }: Props) {
   return (
     <motion.div
       whileHover={{ y: -5, scale: 1.02 }}
-      className="group flex flex-col gap-2 rounded-xl border border-white/5 bg-[#0a0a0f] px-5 py-3 cursor-default
+      className="group flex w-full flex-none flex-col gap-2 rounded-xl border border-white/5 bg-[#0a0a0f] px-5 py-3 cursor-default
                  hover:border-[#0284c7]/50 hover:shadow-[0_0_20px_rgba(14,165,233,0.07)]
-                 transition-colors duration-200"
+                 transition-colors duration-200
+                 sm:w-[calc(50%-0.5rem)] md:w-[calc(33.333%-0.667rem)] lg:w-[calc(25%-0.75rem)] xl:w-[calc(20%-0.8rem)]"
     >
       {/* Icon — image if icon path set, otherwise initials */}
       <div

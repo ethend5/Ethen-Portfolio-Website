@@ -89,8 +89,10 @@ export default function Skills({ skills }: Props) {
           })}
         </motion.div>
 
-        {/* Skills grid */}
-        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
+        {/* Skills grid — flexbox (not CSS grid) so a partial last row centers
+            instead of left-aligning; each card's width mirrors what the
+            equivalent grid-cols-N track width would be at that breakpoint. */}
+        <div className="flex flex-wrap justify-center gap-4">
           {filtered.map((skill, i) => (
             <SkillCard key={skill.name} skill={skill} index={i} />
           ))}

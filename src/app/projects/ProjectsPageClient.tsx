@@ -209,7 +209,7 @@ export default function ProjectsPageClient({ projects }: Props) {
         <div className="max-w-6xl mx-auto">
           <motion.div
             layout
-            className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3"
+            className="flex flex-wrap justify-center gap-6"
           >
             <AnimatePresence mode="popLayout">
               {filtered.map((project, i) => (
@@ -217,12 +217,13 @@ export default function ProjectsPageClient({ projects }: Props) {
                   key={project.slug}
                   layout
                   exit={{ opacity: 0, scale: 0.93, transition: { duration: 0.18 } }}
+                  className="w-[calc(50%-0.75rem)] flex-none lg:w-[calc(33.333%-1rem)]"
                 >
                   {/*
                    * No initial/animate here — let ProjectCard's whileInView handle entrance.
                    * AnimatePresence only handles exit. layout handles repositioning.
                    */}
-                  <ProjectCard project={project} index={i} />
+                  <ProjectCard project={project} index={i} className="w-full" />
                 </motion.div>
               ))}
             </AnimatePresence>
