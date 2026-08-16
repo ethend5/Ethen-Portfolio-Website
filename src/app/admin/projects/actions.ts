@@ -18,6 +18,7 @@ interface ProjectInput {
   category: string;
   tags: string[];
   image_url: string | null;
+  gallery_urls: string[];
   project_url: string | null;
   link_type: string | null;
   featured: boolean;
@@ -45,6 +46,11 @@ function parseFormData(formData: FormData): ProjectInput {
   const rawLinkType = str("link_type");
   const link_type = LINK_TYPES.includes(rawLinkType) ? rawLinkType : null;
 
+  const gallery_urls = formData
+    .getAll("gallery_urls")
+    .map((v) => String(v).trim())
+    .filter(Boolean);
+
   return {
     title: str("title"),
     slug: str("slug"),
@@ -54,6 +60,7 @@ function parseFormData(formData: FormData): ProjectInput {
     category: str("category"),
     tags,
     image_url: optional("image_url"),
+    gallery_urls,
     project_url: optional("project_url"),
     link_type,
     featured: formData.get("featured") === "on",

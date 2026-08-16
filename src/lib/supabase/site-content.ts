@@ -11,6 +11,7 @@ export interface SiteContentRow {
   github_url: string | null;
   typed_phrases: string[];
   focus_areas: string[];
+  about_images: string[];
   updated_at: string;
 }
 
@@ -24,6 +25,7 @@ export interface SiteContent {
   githubUrl: string;
   typedPhrases: string[];
   focusAreas: string[];
+  aboutImages: string[];
 }
 
 export function rowToSiteContent(row: SiteContentRow): SiteContent {
@@ -37,6 +39,7 @@ export function rowToSiteContent(row: SiteContentRow): SiteContent {
     githubUrl: row.github_url ?? "",
     typedPhrases: row.typed_phrases,
     focusAreas: row.focus_areas,
+    aboutImages: row.about_images ?? [],
   };
 }
 

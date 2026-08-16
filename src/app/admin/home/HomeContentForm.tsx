@@ -3,6 +3,7 @@
 import { useActionState, useState } from "react";
 import { motion } from "framer-motion";
 import { Save } from "lucide-react";
+import CloudinaryGalleryField from "@/components/admin/CloudinaryGalleryField";
 import type { SiteContentRow } from "@/lib/supabase/site-content";
 import { updateSiteContent, type ActionState } from "./actions";
 
@@ -66,6 +67,12 @@ export default function HomeContentForm({ content }: Props) {
           className={TEXTAREA_CLASS}
         />
       </Field>
+
+      <CloudinaryGalleryField
+        name="about_images"
+        label="About Section Carousel Photos"
+        defaultValue={content.about_images}
+      />
 
       <Field label="Rotating header phrases (one per line)">
         <textarea

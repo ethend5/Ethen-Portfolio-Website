@@ -3,6 +3,7 @@
 import { useActionState } from "react";
 import { motion } from "framer-motion";
 import { Save } from "lucide-react";
+import CloudinaryImageField from "@/components/admin/CloudinaryImageField";
 import type { ExperienceRow } from "@/lib/supabase/experience";
 import type { ActionState } from "./actions";
 
@@ -92,6 +93,13 @@ export default function ExperienceForm({ experience, action, submitLabel }: Prop
             />
           </Field>
         </div>
+
+        <CloudinaryImageField
+          name="logo_url"
+          label="Company Logo"
+          defaultValue={experience?.logo_url}
+          placeholder="https://…"
+        />
 
         <div className="grid grid-cols-1 gap-4 sm:grid-cols-3">
           <Field label="Start Date">

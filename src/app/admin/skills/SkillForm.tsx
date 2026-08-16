@@ -3,6 +3,7 @@
 import { useActionState } from "react";
 import { motion } from "framer-motion";
 import { Save } from "lucide-react";
+import CloudinaryImageField from "@/components/admin/CloudinaryImageField";
 import type { SkillRow } from "@/lib/supabase/skills";
 import type { ActionState } from "./actions";
 
@@ -68,15 +69,14 @@ export default function SkillForm({ skill, action, submitLabel }: Props) {
         </Field>
       </div>
 
-      <div className="grid grid-cols-1 gap-4 sm:grid-cols-3">
-        <Field label="Icon Path">
-          <input
-            name="icon"
-            defaultValue={skill?.icon ?? ""}
-            placeholder="/skills/react.svg"
-            className={INPUT_CLASS}
-          />
-        </Field>
+      <CloudinaryImageField
+        name="icon"
+        label="Icon"
+        defaultValue={skill?.icon}
+        placeholder="/skills/react.svg or https://…"
+      />
+
+      <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
         <Field label="Proficiency (1–5)">
           <input
             type="number"

@@ -18,6 +18,7 @@ interface ExperienceInput {
   description: string | null;
   bullets: string[];
   skills: string[];
+  logo_url: string | null;
   display_order: number;
 }
 
@@ -45,6 +46,7 @@ function parseFormData(formData: FormData): ExperienceInput {
     description: optional("description"),
     bullets: lines("bullets"),
     skills: csv("skills"),
+    logo_url: optional("logo_url"),
     display_order: Number(str("display_order")) || 0,
   };
 }

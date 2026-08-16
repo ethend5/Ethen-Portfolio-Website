@@ -13,6 +13,7 @@ create table if not exists public.projects (
   category          text not null check (category in ('hardware', 'software', 'ai', 'embedded', 'web')),
   tags              text[] not null default '{}',
   image_url         text,
+  gallery_urls      text[] not null default '{}',                     -- additional photos, shown on the project detail page
   project_url       text,                                             -- deprecated, superseded by `links`
   link_type         text check (link_type in ('github', 'youtube')),  -- deprecated, superseded by `links`
   links             jsonb not null default '[]'::jsonb,                -- [{ "type": "github"|"youtube"|"live"|"other", "url": "..." }]
@@ -31,6 +32,7 @@ create table if not exists public.projects (
 alter table public.projects add column if not exists long_description text;
 alter table public.projects add column if not exists link_type text check (link_type in ('github', 'youtube'));
 alter table public.projects add column if not exists links jsonb not null default '[]'::jsonb;
+alter table public.projects add column if not exists gallery_urls text[] not null default '{}';
 
 alter table public.projects drop constraint if exists projects_links_is_array;
 alter table public.projects add constraint projects_links_is_array check (jsonb_typeof(links) = 'array');
@@ -94,10 +96,14 @@ create table if not exists public.experience (
   description    text,
   bullets        text[] not null default '{}',
   skills         text[] not null default '{}',
+  logo_url       text,                        -- company logo, uploaded via Cloudinary
   display_order  integer not null default 0,
   created_at     timestamptz not null default now(),
   constraint experience_company_role_key unique (company, role)
 );
+
+-- Self-heal tables that were already created before this column existed.
+alter table public.experience add column if not exists logo_url text;
 
 grant select on public.experience to anon, authenticated;
 grant insert, update, delete on public.experience to authenticated;
@@ -192,12 +198,14 @@ create table if not exists public.site_content (
   github_url     text,
   typed_phrases  text[] not null default '{}',
   focus_areas    text[] not null default '{}',
+  about_images   text[] not null default '{}',  -- About section carousel photos, uploaded via Cloudinary
   updated_at     timestamptz not null default now()
 );
 
 -- Self-heal a table that was already created before these columns existed.
 alter table public.site_content add column if not exists typed_phrases text[] not null default '{}';
 alter table public.site_content add column if not exists focus_areas text[] not null default '{}';
+alter table public.site_content add column if not exists about_images text[] not null default '{}';
 
 grant select on public.site_content to anon, authenticated;
 grant update on public.site_content to authenticated;
@@ -251,3 +259,10 @@ update public.site_content
 update public.site_content
   set focus_areas = array['Embedded Systems', 'PCB Design', 'Machine Learning', 'RTOS / Firmware', 'Full-Stack Web', 'Control Theory']
   where id = 1 and focus_areas = '{}';
+
+-- Backfill about_images with the photos that were previously hardcoded in
+-- About.tsx, so the carousel doesn't go empty the moment this column
+-- appears. Only touches rows where still empty.
+update public.site_content
+  set about_images = array['/images/about-1.jpg', '/images/about-2.jpg', '/images/about-3.jpg']
+  where id = 1 and about_images = '{}';

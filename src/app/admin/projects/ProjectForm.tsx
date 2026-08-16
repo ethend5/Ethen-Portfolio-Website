@@ -3,6 +3,8 @@
 import { useActionState, useState } from "react";
 import { motion } from "framer-motion";
 import { Save } from "lucide-react";
+import CloudinaryImageField from "@/components/admin/CloudinaryImageField";
+import CloudinaryGalleryField from "@/components/admin/CloudinaryGalleryField";
 import type { ProjectRow } from "@/lib/supabase/projects";
 import type { ActionState } from "./actions";
 
@@ -178,14 +180,18 @@ export default function ProjectForm({ project, action, submitLabel }: Props) {
           />
         </Field>
 
-        <Field label="Image URL">
-          <input
-            name="image_url"
-            defaultValue={project?.image_url ?? ""}
-            placeholder="/projects/my-project.png or https://…"
-            className={INPUT_CLASS}
-          />
-        </Field>
+        <CloudinaryImageField
+          name="image_url"
+          label="Cover Image"
+          defaultValue={project?.image_url}
+          placeholder="/projects/my-project.png or https://…"
+        />
+
+        <CloudinaryGalleryField
+          name="gallery_urls"
+          label="Gallery (additional photos, shown on the project detail page)"
+          defaultValue={project?.gallery_urls}
+        />
 
         <div className="flex flex-col gap-1.5">
           <span className="text-xs font-medium text-text-secondary">Link Type</span>

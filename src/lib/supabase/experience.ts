@@ -12,6 +12,7 @@ export interface ExperienceRow {
   description: string | null;
   bullets: string[];
   skills: string[];
+  logo_url: string | null;
   display_order: number;
   created_at: string;
 }
@@ -20,6 +21,7 @@ export function rowToExperience(row: ExperienceRow): Experience {
   return {
     id: row.id,
     company: row.company,
+    logo: row.logo_url ?? undefined,
     role: row.role,
     type: row.type,
     startDate: row.start_date,

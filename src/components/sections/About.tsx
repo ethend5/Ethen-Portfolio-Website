@@ -3,19 +3,6 @@
 import { motion, type Variants } from "framer-motion";
 import Carousel from "@/components/ui/Carousel";
 
-/*
- * ── Photo paths ────────────────────────────────────────────────────────────
- * Save the three photos to public/images/ using these exact filenames:
- *   about-1.jpg  →  hiking in the Santa Cruz redwoods (UCSC hoodie)
- *   about-2.jpg  →  photography / camera shot
- *   about-3.jpg  →  water polo
- */
-const ABOUT_IMAGES = [
-  "/images/about-1.jpg",
-  "/images/about-2.jpg",
-  "/images/about-3.jpg",
-];
-
 // Year Ethen started gaining professional/engineering experience
 const EXPERIENCE_START_YEAR = 2023;
 
@@ -43,9 +30,10 @@ interface Props {
   skillCount: number;
   bioParagraphs: string[];
   focusAreas: string[];
+  images: string[];
 }
 
-export default function About({ projectCount, skillCount, bioParagraphs, focusAreas }: Props) {
+export default function About({ projectCount, skillCount, bioParagraphs, focusAreas, images }: Props) {
   return (
     <section id="about" className="py-16 md:py-24 px-6">
       <div className="max-w-6xl mx-auto">
@@ -101,15 +89,17 @@ export default function About({ projectCount, skillCount, bioParagraphs, focusAr
           {/* ── 2. Carousel + stat cards, stacked in the right column ──── */}
           <div className="flex flex-col gap-8 min-w-0 lg:min-w-[320px]">
 
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6, ease: "easeOut", delay: 0.1 }}
-              className="flex flex-col items-center justify-center"
-            >
-              <Carousel images={ABOUT_IMAGES} />
-            </motion.div>
+            {images.length > 0 && (
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.6, ease: "easeOut", delay: 0.1 }}
+                className="flex flex-col items-center justify-center"
+              >
+                <Carousel images={images} />
+              </motion.div>
+            )}
 
             <motion.div
               variants={containerVariants}

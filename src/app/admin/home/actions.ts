@@ -15,6 +15,7 @@ interface SiteContentInput {
   github_url: string | null;
   typed_phrases: string[];
   focus_areas: string[];
+  about_images: string[];
 }
 
 function parseFormData(formData: FormData): SiteContentInput {
@@ -41,6 +42,10 @@ function parseFormData(formData: FormData): SiteContentInput {
     github_url: optional("github_url"),
     typed_phrases: lines("typed_phrases"),
     focus_areas: csv("focus_areas"),
+    about_images: formData
+      .getAll("about_images")
+      .map((v) => String(v).trim())
+      .filter(Boolean),
   };
 }
 

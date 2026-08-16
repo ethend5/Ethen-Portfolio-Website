@@ -4,6 +4,7 @@ import { useState } from "react";
 import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
 import { ExternalLink, ArrowLeft, Calendar, X } from "lucide-react";
+import ProjectGallery from "@/components/ui/ProjectGallery";
 import type { Project } from "@/types";
 
 // ─── Category config ──────────────────────────────────────────────────────────
@@ -361,6 +362,8 @@ export default function ProjectDetailClient({ project }: Props) {
                   </div>
                 )}
               </div>
+
+              <ProjectGallery images={project.galleryUrls} title={project.title} />
 
             </div>
           </motion.aside>

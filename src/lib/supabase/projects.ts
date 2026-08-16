@@ -12,6 +12,7 @@ export interface ProjectRow {
   category: Project["category"];
   tags: string[];
   image_url: string | null;
+  gallery_urls: string[];
   project_url: string | null;
   link_type: "github" | "youtube" | null;
   featured: boolean;
@@ -33,6 +34,7 @@ export function rowToProject(row: ProjectRow): Project {
     date: row.date,
     tags: row.tags,
     image: row.image_url ?? "",
+    galleryUrls: row.gallery_urls ?? [],
     github: row.link_type === "github" ? row.project_url ?? undefined : undefined,
     demo: row.link_type === "youtube" ? row.project_url ?? undefined : undefined,
     demoLabel: row.link_type === "youtube" ? "Watch Demo" : undefined,
