@@ -85,10 +85,10 @@ export default function ProjectsPageClient({ projects }: Props) {
           transition={{ duration: 0.5 }}
           className="relative z-10 max-w-6xl mx-auto"
         >
-          <h1 className="text-4xl font-bold text-white md:text-5xl mb-3">
+          <h1 className="text-3xl font-bold text-white sm:text-4xl md:text-5xl mb-3">
             All Projects
           </h1>
-          <p className="text-[#94a3b8] text-lg">
+          <p className="text-[#94a3b8] text-base sm:text-lg">
             A collection of things I&apos;ve designed, built, and shipped.
           </p>
         </motion.div>
@@ -217,7 +217,7 @@ export default function ProjectsPageClient({ projects }: Props) {
                   key={project.slug}
                   layout
                   exit={{ opacity: 0, scale: 0.93, transition: { duration: 0.18 } }}
-                  className="w-[calc(50%-0.75rem)] flex-none lg:w-[calc(33.333%-1rem)]"
+                  className="w-full flex-none md:w-[calc(50%-0.75rem)] lg:w-[calc(33.333%-1rem)]"
                 >
                   {/*
                    * No initial/animate here — let ProjectCard's whileInView handle entrance.

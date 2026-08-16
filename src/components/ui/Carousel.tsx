@@ -55,6 +55,7 @@ export default function Carousel({ images }: CarouselProps) {
             key={current}
             src={images[current]}
             alt={`About photo ${current + 1}`}
+            draggable={false}
             className="absolute inset-0 w-full h-full object-cover cursor-grab active:cursor-grabbing"
             style={{ touchAction: "pan-y" }}
             drag="x"

@@ -43,7 +43,7 @@ export default function Skills({ skills }: Props) {
           transition={{ duration: 0.5 }}
           className="mb-10"
         >
-          <h2 className="text-3xl font-bold text-white mb-2">Skills</h2>
+          <h2 className="text-2xl font-bold text-white mb-2 md:text-3xl">Skills</h2>
           <div className="h-1 w-12 rounded-full bg-[#0ea5e9]" />
         </motion.div>
 
@@ -92,7 +92,7 @@ export default function Skills({ skills }: Props) {
         {/* Skills grid — flexbox (not CSS grid) so a partial last row centers
             instead of left-aligning; each card's width mirrors what the
             equivalent grid-cols-N track width would be at that breakpoint. */}
-        <div className="flex flex-wrap justify-center gap-4">
+        <div className="flex flex-wrap justify-center gap-3 md:gap-4">
           {filtered.map((skill, i) => (
             <SkillCard key={skill.name} skill={skill} index={i} />
           ))}

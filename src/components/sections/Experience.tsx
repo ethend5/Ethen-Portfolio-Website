@@ -126,7 +126,7 @@ export default function Experience({ experiences }: Props) {
           transition={{ duration: 0.5 }}
           className="mb-10"
         >
-          <h2 className="text-3xl font-bold text-white mb-2">Experience</h2>
+          <h2 className="text-2xl font-bold text-white mb-2 md:text-3xl">Experience</h2>
           <div className="h-1 w-12 rounded-full bg-primary-500" />
         </motion.div>
 
@@ -172,7 +172,7 @@ export default function Experience({ experiences }: Props) {
                 <div
                   key={exp.id}
                   data-exp-card
-                  className="w-[calc(100%-24px)] md:w-[calc(50%-12px)] lg:w-[calc(33.333%-16px)] shrink-0"
+                  className="w-full md:w-[calc(50%-12px)] lg:w-[calc(33.333%-16px)] shrink-0"
                   style={{ scrollSnapAlign: "start" }}
                 >
                   <ExperienceCard

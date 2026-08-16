@@ -206,7 +206,7 @@ export default function ProjectDetailClient({ project }: Props) {
             initial={{ opacity: 0, y: 14 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.45, delay: 0.1 }}
-            className="text-4xl font-bold leading-tight text-white mb-6 md:text-5xl max-w-3xl"
+            className="text-3xl font-bold leading-tight text-white mb-6 sm:text-4xl md:text-5xl max-w-3xl"
           >
             {project.title}
           </motion.h1>

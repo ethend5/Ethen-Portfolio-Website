@@ -25,7 +25,7 @@ export default function DeleteExperienceButton({ id, label }: Props) {
       disabled={isPending}
       aria-label={`Delete ${label}`}
       className="flex items-center gap-1.5 rounded-md border border-white/10 px-3 py-1.5
-                 text-xs text-red-400/80 hover:text-red-400 hover:border-red-400/40
+                 text-sm text-red-400/80 hover:text-red-400 hover:border-red-400/40
                  disabled:opacity-60 disabled:cursor-not-allowed
                  transition-colors duration-200"
     >

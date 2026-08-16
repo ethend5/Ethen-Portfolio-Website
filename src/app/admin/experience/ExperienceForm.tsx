@@ -43,7 +43,7 @@ export default function ExperienceForm({ experience, action, submitLabel }: Prop
   return (
     <form action={formAction} className="flex flex-col gap-10">
       <div className="flex flex-col gap-4">
-        <h2 className="text-xs font-semibold uppercase tracking-wider text-text-muted">
+        <h2 className="text-sm font-semibold uppercase tracking-wider text-text-muted">
           Basic Info
         </h2>
 
@@ -123,7 +123,7 @@ export default function ExperienceForm({ experience, action, submitLabel }: Prop
       </div>
 
       <div className="flex flex-col gap-4">
-        <h2 className="text-xs font-semibold uppercase tracking-wider text-text-muted">
+        <h2 className="text-sm font-semibold uppercase tracking-wider text-text-muted">
           Content
         </h2>
 

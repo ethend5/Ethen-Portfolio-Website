@@ -77,7 +77,7 @@ export default function ProjectForm({ project, action, submitLabel }: Props) {
     <form action={formAction} className="flex flex-col gap-10">
       {/* ── Basic info ─────────────────────────────────────────── */}
       <div className="flex flex-col gap-4">
-        <h2 className="text-xs font-semibold uppercase tracking-wider text-text-muted">
+        <h2 className="text-sm font-semibold uppercase tracking-wider text-text-muted">
           Basic Info
         </h2>
 
@@ -154,7 +154,7 @@ export default function ProjectForm({ project, action, submitLabel }: Props) {
 
       {/* ── Content ────────────────────────────────────────────── */}
       <div className="flex flex-col gap-4">
-        <h2 className="text-xs font-semibold uppercase tracking-wider text-text-muted">
+        <h2 className="text-sm font-semibold uppercase tracking-wider text-text-muted">
           Content
         </h2>
 
@@ -229,7 +229,7 @@ export default function ProjectForm({ project, action, submitLabel }: Props) {
 
       {/* ── Case study ─────────────────────────────────────────── */}
       <div className="flex flex-col gap-4">
-        <h2 className="text-xs font-semibold uppercase tracking-wider text-text-muted">
+        <h2 className="text-sm font-semibold uppercase tracking-wider text-text-muted">
           Case Study <span className="normal-case text-text-muted/70">(optional)</span>
         </h2>
 

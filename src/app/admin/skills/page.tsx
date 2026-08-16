@@ -62,7 +62,7 @@ export default async function AdminSkillsPage() {
                 <Link
                   href={`/admin/skills/${skill.id}/edit`}
                   className="flex items-center gap-1.5 rounded-md border border-white/10 px-3 py-1.5
-                             text-xs text-text-secondary hover:text-white hover:border-white/20
+                             text-sm text-text-secondary hover:text-white hover:border-white/20
                              transition-colors duration-200"
                 >
                   <Pencil size={13} />

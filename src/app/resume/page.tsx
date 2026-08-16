@@ -17,7 +17,7 @@ export default async function ResumePage() {
     <section className="min-h-screen pt-24 pb-16 px-6">
       <div className="max-w-4xl mx-auto">
         <div className="flex items-center justify-between mb-8 flex-wrap gap-4">
-          <h1 className="text-4xl font-bold text-white">Resume</h1>
+          <h1 className="text-3xl font-bold text-white sm:text-4xl">Resume</h1>
           <a
             href={resumeUrl}
             download
@@ -51,7 +51,7 @@ export default async function ResumePage() {
             style={{ height: "80vh" }}
           >
             <div className="flex flex-col items-center justify-center py-20 px-6 text-center gap-4">
-              <p className="text-text-secondary text-lg">
+              <p className="text-text-secondary text-base sm:text-lg">
                 Your browser cannot display the PDF inline.
               </p>
               <a

@@ -59,7 +59,7 @@ interface Props {
   className?: string;
 }
 
-const DEFAULT_WIDTH = "w-[calc(50%-0.75rem)] flex-none lg:w-[calc(33.333%-1rem)]";
+const DEFAULT_WIDTH = "w-full flex-none md:w-[calc(50%-0.75rem)] lg:w-[calc(33.333%-1rem)]";
 
 export default function ProjectCard({ project, index = 0, className = DEFAULT_WIDTH }: Props) {
   const gradient = CATEGORY_GRADIENT[project.category];
@@ -85,7 +85,7 @@ export default function ProjectCard({ project, index = 0, className = DEFAULT_WI
                      transition-colors duration-300"
         >
           {/* ── Image / placeholder area ─────────────────────────────── */}
-          <div className={`relative h-44 bg-gradient-to-br ${gradient} overflow-hidden`}>
+          <div className={`relative h-56 md:h-44 bg-gradient-to-br ${gradient} overflow-hidden`}>
 
             {/* Real image — place file at public/projects/<slug>.png (or .jpg) */}
             {project.image && (
@@ -137,11 +137,11 @@ export default function ProjectCard({ project, index = 0, className = DEFAULT_WI
           </div>
 
           {/* ── Card body ────────────────────────────────────────────── */}
-          <div className="flex flex-1 flex-col gap-3 p-5">
+          <div className="flex flex-1 flex-col gap-4 p-6 md:gap-3 md:p-5">
 
             {/* Title + date */}
             <div className="flex items-start justify-between gap-3">
-              <h3 className="text-base font-semibold leading-snug text-white
+              <h3 className="text-lg font-semibold leading-snug text-white md:text-base
                              group-hover:text-[#38bdf8] transition-colors duration-200">
                 {project.title}
               </h3>

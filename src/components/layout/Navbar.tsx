@@ -140,7 +140,7 @@ function MobileLink({
       <button
         onClick={onClick}
         className={[
-          "w-full text-left text-2xl font-semibold py-3 transition-colors duration-200 border-b border-white/5",
+          "w-full text-left text-base font-semibold py-3.5 transition-colors duration-200 border-b border-white/5",
           isActive ? "text-[#38bdf8]" : "text-text-secondary hover:text-white",
         ].join(" ")}
       >
@@ -342,7 +342,7 @@ export default function Navbar() {
                   <a
                     href="/resume"
                     onClick={() => setMobileOpen(false)}
-                    className="flex items-center justify-center w-full py-3 rounded-lg border border-primary-600 text-[#38bdf8] font-medium hover:bg-primary-500/10 transition-all duration-200"
+                    className="flex items-center justify-center w-full py-3 rounded-lg border border-primary-600 text-[#38bdf8] text-base font-medium hover:bg-primary-500/10 transition-all duration-200"
                   >
                     Resume
                   </a>

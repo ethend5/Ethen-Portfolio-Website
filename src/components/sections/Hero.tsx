@@ -151,7 +151,7 @@ export default function Hero({ name, tagline, email, linkedinUrl, githubUrl, phr
 
             {/* Name */}
             <motion.div variants={itemVariants} className="flex flex-col items-center lg:items-start">
-              <h1 className="text-5xl font-bold leading-tight text-white md:text-6xl lg:text-7xl">
+              <h1 className="text-3xl font-bold leading-tight text-white sm:text-4xl md:text-6xl lg:text-7xl">
                 {name}
               </h1>
               {/* Blue underline accent */}

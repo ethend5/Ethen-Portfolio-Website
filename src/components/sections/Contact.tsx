@@ -123,7 +123,7 @@ export default function Contact() {
           transition={{ duration: 0.5 }}
           className="mb-12"
         >
-          <h2 className="text-3xl font-bold text-white mb-2">Get In Touch</h2>
+          <h2 className="text-2xl font-bold text-white mb-2 md:text-3xl">Get In Touch</h2>
           <div className="h-1 w-12 rounded-full bg-primary-500" />
         </motion.div>
 

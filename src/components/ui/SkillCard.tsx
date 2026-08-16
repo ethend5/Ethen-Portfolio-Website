@@ -81,15 +81,16 @@ export default function SkillCard({ skill, index }: Props) {
   return (
     <motion.div
       whileHover={{ y: -5, scale: 1.02 }}
-      className="group flex w-full flex-none flex-col gap-2 rounded-xl border border-white/5 bg-[#0a0a0f] px-5 py-3 cursor-default
+      className="group flex flex-none flex-col gap-1.5 rounded-xl border border-white/5 bg-[#0a0a0f] px-3 py-2.5 cursor-default
                  hover:border-[#0284c7]/50 hover:shadow-[0_0_20px_rgba(14,165,233,0.07)]
                  transition-colors duration-200
-                 sm:w-[calc(50%-0.5rem)] md:w-[calc(33.333%-0.667rem)] lg:w-[calc(25%-0.75rem)] xl:w-[calc(20%-0.8rem)]"
+                 w-[calc(50%-0.375rem)] md:w-[calc(33.333%-0.667rem)] lg:w-[calc(25%-0.75rem)] xl:w-[calc(20%-0.8rem)]
+                 md:gap-2 md:px-5 md:py-3"
     >
       {/* Icon — image if icon path set, otherwise initials */}
       <div
-        className={`flex h-10 w-10 items-center justify-center rounded-lg border overflow-hidden
-                    ${c.iconBg} ${c.iconBorder}`}
+        className={`flex h-8 w-8 items-center justify-center rounded-lg border overflow-hidden
+                    md:h-10 md:w-10 ${c.iconBg} ${c.iconBorder}`}
       >
         {skill.icon ? (
           <Image
@@ -97,18 +98,19 @@ export default function SkillCard({ skill, index }: Props) {
             alt={skill.name}
             width={28}
             height={28}
-            style={{ width: 28, height: 28, objectFit: "contain" }}
+            className="w-5 h-5 md:w-7 md:h-7"
+            style={{ objectFit: "contain" }}
           />
         ) : (
-          <span className={`font-mono text-sm font-bold ${c.iconText}`}>
+          <span className={`font-mono text-xs font-bold md:text-sm ${c.iconText}`}>
             {getInitials(skill.name)}
           </span>
         )}
       </div>
 
       {/* Name + category badge */}
-      <div className="flex items-start justify-between gap-2">
-        <span className="text-sm font-semibold leading-snug text-white">
+      <div className="flex items-start justify-between gap-1.5 md:gap-2">
+        <span className="text-xs font-semibold leading-snug text-white md:text-sm">
           {skill.name}
         </span>
         <span
@@ -123,7 +125,7 @@ export default function SkillCard({ skill, index }: Props) {
         {Array.from({ length: 5 }).map((_, i) => (
           <div
             key={i}
-            className={`h-1.5 flex-1 rounded-full transition-colors duration-200
+            className={`h-1 md:h-1.5 flex-1 rounded-full transition-colors duration-200
                         ${i < skill.proficiency ? c.bar : "bg-white/5"}`}
           />
         ))}
