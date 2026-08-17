@@ -86,17 +86,17 @@ export default function ExperienceCard({ experience, isSelected, onSelect }: Pro
         </div>
 
         {/* Company logo — top left */}
-        <div className="absolute top-3 left-3 h-9 w-9 rounded-lg overflow-hidden border border-white/20 bg-white/10 backdrop-blur-sm flex items-center justify-center">
+        <div className="absolute top-3 left-3 h-13 w-13 rounded-lg overflow-hidden border border-white/20 bg-white/10 backdrop-blur-sm flex items-center justify-center p-1">
           {experience.logo ? (
             <Image
               src={experience.logo}
               alt={experience.company}
-              width={28}
-              height={28}
-              className="object-contain"
+              width={44}
+              height={44}
+              className="h-full w-full object-contain"
             />
           ) : (
-            <span className={`text-[10px] font-bold leading-none ${cfg.accent}`}>
+            <span className={`text-base font-bold leading-none ${cfg.accent}`}>
               {experience.company.slice(0, 2).toUpperCase()}
             </span>
           )}
