@@ -30,6 +30,12 @@ const TYPE_CONFIG: Record<Experience["type"], TypeConfig> = {
     dot:      "bg-emerald-400",
     label:    "Technical",
   },
+  activities: {
+    gradient: "from-amber-900/60 via-amber-950/80 to-background-900",
+    accent:   "text-amber-400",
+    dot:      "bg-amber-400",
+    label:    "Activities",
+  },
 };
 
 function formatDate(d: string): string {

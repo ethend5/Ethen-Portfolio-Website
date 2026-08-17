@@ -32,7 +32,7 @@ export default function Skills({ skills }: Props) {
       : skills.filter((s) => s.category === activeFilter);
 
   return (
-    <section id="skills" className="py-24 px-6 bg-[#111118]">
+    <section id="skills" className="py-24 px-6 bg-[#111118] scroll-mt-24">
       <div className="max-w-6xl mx-auto">
 
         {/* Section header */}

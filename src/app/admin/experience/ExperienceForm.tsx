@@ -19,6 +19,7 @@ const TYPE_OPTIONS = [
   { value: "professional", label: "Internship" },
   { value: "leadership", label: "Leadership" },
   { value: "technical", label: "Technical" },
+  { value: "activities", label: "Activities" },
 ] as const;
 
 function Field({ label, children }: { label: string; children: React.ReactNode }) {

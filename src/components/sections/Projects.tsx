@@ -14,7 +14,7 @@ export default function Projects({ projects }: Props) {
   const featured = projects.filter((p) => p.featured).slice(0, 3);
 
   return (
-    <section id="projects" className="py-24 px-6">
+    <section id="projects" className="py-24 px-6 scroll-mt-24">
       <div className="max-w-6xl mx-auto">
 
         {/* Section header */}

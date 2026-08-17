@@ -2,12 +2,13 @@
 
 import { useEffect, useState } from "react";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X } from "lucide-react";
 
 const NAV_LINKS = [
   { label: "About",      href: "#about"      },
+  { label: "Skills",     href: "#skills"     },
   { label: "Projects",   href: "#projects"   },
   { label: "Experience", href: "#experience" },
   { label: "Contact",    href: "#contact"    },
@@ -68,7 +69,7 @@ function useActiveSection(ids: string[]) {
 
 function scrollToSection(id: string) {
   const el = document.getElementById(id);
-  if (el) el.scrollIntoView({ behavior: "instant" as ScrollBehavior, block: "start" });
+  if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
 }
 
 // ─── Desktop nav link ────────────────────────────────────────────────────────
@@ -157,6 +158,7 @@ export default function Navbar() {
   const scrolled = useScrolled();
   const active = useActiveSection(SECTION_IDS);
   const pathname = usePathname();
+  const router = useRouter();
 
   // Prevent body scroll while mobile menu is open
   useEffect(() => {
@@ -164,20 +166,13 @@ export default function Navbar() {
     return () => { document.body.style.overflow = ""; };
   }, [mobileOpen]);
 
-  // After navigating from another page (e.g. /resume → /#projects), Next.js
-  // resets scroll during hydration. Re-scroll to the hash once effects run.
-  useEffect(() => {
-    if (pathname !== "/") return;
-    const hash = window.location.hash.slice(1);
-    if (!hash) return;
-    const el = document.getElementById(hash);
-    if (el) el.scrollIntoView({ behavior: "instant" as ScrollBehavior, block: "start" });
-  }, [pathname]);
-
   function handleNavClick(id: string) {
     setMobileOpen(false);
     if (pathname !== "/") {
-      window.location.href = "/#" + id;
+      // Navigate to the homepage with the section hash; `scroll: false` skips
+      // Next's default scroll-to-top so the homepage's own ScrollToHash effect
+      // (which checks window.location.hash on mount) owns the final scroll.
+      router.push("/#" + id, { scroll: false });
     } else {
       scrollToSection(id);
     }

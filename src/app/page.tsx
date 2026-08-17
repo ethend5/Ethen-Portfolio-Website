@@ -4,6 +4,7 @@ import Skills from "@/components/sections/Skills";
 import Projects from "@/components/sections/Projects";
 import Experience from "@/components/sections/Experience";
 import Contact from "@/components/sections/Contact";
+import ScrollToHash from "@/components/ScrollToHash";
 import { getProjects } from "@/lib/supabase/projects";
 import { getExperiences } from "@/lib/supabase/experience";
 import { getSkills } from "@/lib/supabase/skills";
@@ -19,6 +20,7 @@ export default async function Home() {
 
   return (
     <>
+      <ScrollToHash />
       <Hero
         name={siteContent.name}
         tagline={siteContent.tagline}

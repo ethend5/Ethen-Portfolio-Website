@@ -89,7 +89,7 @@ create table if not exists public.experience (
   id             uuid primary key default gen_random_uuid(),
   company        text not null,
   role           text not null,
-  type           text not null check (type in ('professional', 'leadership', 'technical')),
+  type           text not null check (type in ('professional', 'leadership', 'technical', 'activities')),
   start_date     text not null,              -- "YYYY-MM"
   end_date       text,                        -- null means "Present"
   location       text,
@@ -104,6 +104,12 @@ create table if not exists public.experience (
 
 -- Self-heal tables that were already created before this column existed.
 alter table public.experience add column if not exists logo_url text;
+
+-- Self-heal the `type` check constraint for tables created before 'activities'
+-- was added as an allowed value.
+alter table public.experience drop constraint if exists experience_type_check;
+alter table public.experience add constraint experience_type_check
+  check (type in ('professional', 'leadership', 'technical', 'activities'));
 
 grant select on public.experience to anon, authenticated;
 grant insert, update, delete on public.experience to authenticated;

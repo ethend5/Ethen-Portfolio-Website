@@ -114,7 +114,7 @@ export default function Hero({ name, tagline, email, linkedinUrl, githubUrl, phr
   return (
     <section
       id="home"
-      className="relative min-h-screen overflow-hidden flex items-center"
+      className="relative min-h-screen overflow-hidden flex items-center scroll-mt-24"
     >
       {/* Dot-grid background */}
       <div

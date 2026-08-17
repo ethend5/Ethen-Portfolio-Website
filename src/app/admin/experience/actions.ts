@@ -6,7 +6,7 @@ import { createClient } from "@/lib/supabase/server";
 
 export type ActionState = { error?: string };
 
-const TYPES = ["professional", "leadership", "technical"];
+const TYPES = ["professional", "leadership", "technical", "activities"];
 
 interface ExperienceInput {
   company: string;

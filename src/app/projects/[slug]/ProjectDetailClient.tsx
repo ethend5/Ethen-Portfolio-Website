@@ -212,23 +212,7 @@ export default function ProjectDetailClient({ project }: Props) {
             {project.title}
           </motion.h1>
 
-          {/* Tags */}
-          <motion.div
-            initial={{ opacity: 0, y: 10 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.4, delay: 0.18 }}
-            className="flex flex-wrap gap-2"
-          >
-            {project.tags.map((tag) => (
-              <span
-                key={tag}
-                className="rounded-full border border-white/10 bg-white/5 px-3 py-1 text-xs
-                           text-[#94a3b8] backdrop-blur-sm"
-              >
-                {tag}
-              </span>
-            ))}
-          </motion.div>
+          {/* Tags — hidden from public display; tags are still stored/edited via admin */}
         </div>
       </div>
 

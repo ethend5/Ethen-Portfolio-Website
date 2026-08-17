@@ -35,7 +35,7 @@ interface Props {
 
 export default function About({ projectCount, skillCount, bioParagraphs, focusAreas, images }: Props) {
   return (
-    <section id="about" className="py-16 md:py-24 px-6">
+    <section id="about" className="py-16 md:py-24 px-6 scroll-mt-24">
       <div className="max-w-6xl mx-auto">
 
         {/* Section header */}

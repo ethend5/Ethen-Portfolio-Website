@@ -24,7 +24,7 @@ export interface Experience {
   company: string;
   logo?: string;
   role: string;
-  type: 'professional' | 'leadership' | 'technical';
+  type: 'professional' | 'leadership' | 'technical' | 'activities';
   startDate: string;
   endDate: string | 'Present';
   description: string;

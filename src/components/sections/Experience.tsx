@@ -12,12 +12,14 @@ const SKILL_PILL: Record<string, string> = {
   professional: "bg-sky-500/10 text-sky-300 border-sky-500/20",
   leadership:   "bg-violet-500/10 text-violet-300 border-violet-500/20",
   technical:    "bg-emerald-500/10 text-emerald-300 border-emerald-500/20",
+  activities:   "bg-amber-500/10 text-amber-300 border-amber-500/20",
 };
 
 const TYPE_ACCENT: Record<string, string> = {
   professional: "bg-sky-500",
   leadership:   "bg-violet-500",
   technical:    "bg-emerald-500",
+  activities:   "bg-amber-500",
 };
 
 function formatDate(d: string): string {
@@ -115,7 +117,7 @@ export default function Experience({ experiences }: Props) {
   }
 
   return (
-    <section id="experience" className="py-20 px-4 sm:py-24 sm:px-6 bg-background-800">
+    <section id="experience" className="py-20 px-4 sm:py-24 sm:px-6 bg-background-800 scroll-mt-24">
       <div className="max-w-6xl mx-auto">
 
         {/* Section header */}
